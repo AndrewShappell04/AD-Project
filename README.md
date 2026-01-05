@@ -13,13 +13,10 @@ The /24 in the CIDR notation indicates that the first 24 bits of the IP address 
 
 From there, I navigated to each VM > Settings > Network, changed it to "Attached to: NAT", and changed to the network I just created (AD-Project).<br>
 
-**Step 2 Set Up Splunk Server**<br>
-<div style="display:flex; align-items:flex-start;">
-<div style="flex: 2; padding-right: 10px;">
-To start, I booted up Ubuntu server and changed the IP address to match my diagram. Everything in Linux is either a file or a folder, so I navigated into the network configuration file using the command "sudo nano /etc/netplan/50-cloud-init.yaml". I modified the file by changing the IP address to 192.168.10.10, changing the DNS to 8.8.8.8 (Google's DNS server), and changing the default gateway to 192.168.10.1 (My network's default gateway).
-</div>
-<div style="flex: 1;">
-<img src="https://github.com/user-attachments/assets/8c08e92d-d413-4cd0-8d59-b52516efc519" width="500">
-</div>
-</div>
+---
 
+**Step 2 Set up Splunk Server**<br>
+I booted up Ubuntu server and changed the IP address to match my diagram. Everything in linux is either a file or a folder, so I navigated into the network configuration file using the command "sudo nano /etc/netplan/50-cloud-init.yaml". I modified the file by changing the IP address to 192.168.10.10, changing the DNS to 8.8.8.8 (Google's DNS server), and changing the default gateway to 192.168.10.1 (My network's default gateway).<br>
+<img width="650" height="500" alt="Screenshot 2025-12-23 164534" src="https://github.com/user-attachments/assets/8c08e92d-d413-4cd0-8d59-b52516efc519" /><br>
+
+To Install Splunk, on my host machine I went to the Splunk website and installed the Linux version of Splunk Enterprise. 
