@@ -6,7 +6,7 @@
 **Purpose:** The purpose of this project is to gain hands-on experience setting up and configuring an Active Directory environment with a focus on security and detection. Each of the VMs serve their own role within the enviroment: Windows 10 Machine simulates user activity and authentication, Active Directory Server manages the domain and user accounts, Kali Linux machine creates the security events, and the Splunk Server monitors the domain for malicious or abnormal behavior. Working with these technologies and understanding their roles is the main learning outcome of this project. 
 
 ---
-**Step 1 Configure the Network**<br>
+**Step 1: Configure the Network**<br>
 After installing the virtual machines and allocating the required hardware for each, a NAT network was configured to place all the machines on the same network. To do this, I went to Tools > Network > NAT Network > Create. I named the NAT Network "AD-Project" with the network IP Address 192.168.10.0/24.<br>
 
 The /24 in the CIDR notation indicates that the first 24 bits of the IP address are the network portion, which means the subnet mask is 255.255.255.0. This allows for 256 total IP addresses in the subnet, with 254 usable host addresses (since the first address is reserved as the network address and the last as the broadcast address).<br>
@@ -15,8 +15,8 @@ From there, I navigated to each VM > Settings > Network, changed it to "Attached
 
 ---
 
-**Step 2 Set up Splunk Server**<br>
-I booted up Ubuntu server and changed the IP address to match my diagram. Everything in linux is either a file or a folder, so I navigated into the network configuration file using the command "sudo nano /etc/netplan/50-cloud-init.yaml". I modified the file by changing the IP address to 192.168.10.10, changing the DNS to 8.8.8.8 (Google's DNS server), and changing the default gateway to 192.168.10.1 (My network's default gateway).<br>
+**Step 2: Set up Splunk Server**<br>
+I booted up Ubuntu server and changed the IP address to match my diagram. Everything in linux is either a file or a folder, so I navigated into the network configuration file using the command "sudo nano /etc/netplan/50-cloud-init.yaml". I modified the file by configuring a static IP address of 192.168.10.10, changing the DNS to 8.8.8.8 (Google's DNS server), and changing the default gateway to 192.168.10.1 (My network's default gateway).<br>
 <img width="650" height="500" alt="Screenshot 2025-12-23 164534" src="https://github.com/user-attachments/assets/8c08e92d-d413-4cd0-8d59-b52516efc519" /><br>
 
 Following this, I needed to install Splunk on my Ubuntu Server, so I first downloaded the Linux version of Splunk Enterprise on my host machine. Next, I installed the necessary VirtualBox guest utilities on the Ubuntu Server to ensure proper integration between the host and the virtual machine. After that, I created a shared folder in VirtualBox so the Splunk installation files could be accessed from within the server. Once the shared folder was mounted and verified, I navigated to it from the Ubuntu Server and installed Splunk using the package manager. After installation, I started Splunk, completed the initial setup, and configured it to run automatically at boot using my dedicated Splunk user. This ensured that whenever the Ubuntu Server was started and I logged in with my user account, Splunk would automatically start as well.<br>
@@ -70,7 +70,21 @@ Anytime the inputs.conf file is updated, the Splunk Universal forwarder service 
 ---
 
 **Step 4: Active Directory Domain Controller** <br>
-
+Similarly to the other VMs, the network settings needed to be configured first to match my network diagram. So, I configured a static IP address of 192.168.10.7, default gateway of 192.168.10.1, and DNS server of 8.8.8.8. After that, I navigated to the Server Manager application that comes installed with Windows Server, and selected Manage > Add Roles and Features. I went through the steps of installing Active Directory Domain Services. <br> 
+<table>
+  <tr>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/33621621-e284-44e6-85b4-ce6cb0dc16fc"
+           alt="Screenshot 2026-01-08 164353"
+           width="450">
+    </td>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/cc634825-e2d7-4568-8e98-76dd8f20fac0"
+           alt="Screenshot 2026-01-08 164938"
+           width="450">
+    </td>
+  </tr>
+</table>
 
 
 
