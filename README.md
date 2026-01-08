@@ -40,7 +40,7 @@ Following this, I needed to install Splunk on my Ubuntu Server, so I first downl
 
 ---
 
-**Step 3: Windows 10 Machine and AD Server Splunk Set Up**<br>
+**Step 3: Windows 10 Machine and AD Server Splunk Set Up** <br />
 For the context of this project started by changing the Windows 10 machine to be named "target-PC" because it will eventually be exposed by my Kali Linux machine. I then changed the network settings on the machine to match my network, so that I could now access my newly set up Splunk Server.
 <table>
   <tr>
@@ -55,9 +55,15 @@ For the context of this project started by changing the Windows 10 machine to be
            width="450">
     </td>
   </tr>
-</table>
+</table> <br>
 First, I installed the Splunk Universal Forwarder from the Splunk website, then I installed Sysmon which was much less straightforward. To install Sysmon, I downloaded the software from https://learn.microsoft.com/en-us/sysinternals/downloads/sysmon, and extracted the raw data of the sysmonconfig.xml from https://github.com/olafhartong/sysmon-modular. Finally, I copied the URL of the extracted directory and ran Sysmon in Powershell. <br />
 <img width="650" height="500" alt="Screenshot 2025-12-28 145430" src="https://github.com/user-attachments/assets/718f5f9d-4590-46a4-bc0e-122b6ebcef77" /> <br />
+
+<br>
+
+Sysmon and Splunk work in conjuction with each other to provide information about system activity by collecting, centralizing, and analyzing detailed event data. Sysmon generates in-depth logs related to process creation, network connections, file changes, and registry modifications, while Splunk ingests and correlates this data across multiple systems. By adding another inputs.conf file into Local Disk (C:) > Program Files > SplunkUniversalForwarder > etc > system > local, I can define what Sysmon event logs I want to be collected, how to collect them, and where to send them in Splunk. In the image below, it can be seen that I configured the inputs.conf file to collect multiple Windows Event Logs, including the Application, Security, and System logs, as well as the Microsoft-Windows-Sysmon/Operational log. Each of these inputs is enabled and set to send events to the endpoint index in Splunk. The file was originally a txt file created in Notepad, but was converted into a conf file before being added to the correct directory. <br>
+<img width="650" height="500" alt="Screenshot 2025-12-28 150235" src="https://github.com/user-attachments/assets/bf60609d-30da-4bdc-a41c-1e03f3ee8486" /> <br>
+
 
 
 
