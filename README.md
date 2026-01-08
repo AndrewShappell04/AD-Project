@@ -61,8 +61,18 @@ First, I installed the Splunk Universal Forwarder from the Splunk website, then 
 
 <br>
 
-Sysmon and Splunk work in conjuction with each other to provide information about system activity by collecting, centralizing, and analyzing detailed event data. Sysmon generates in-depth logs related to process creation, network connections, file changes, and registry modifications, while Splunk ingests and correlates this data across multiple systems. By adding another inputs.conf file into Local Disk (C:) > Program Files > SplunkUniversalForwarder > etc > system > local, I can define what Sysmon event logs I want to be collected, how to collect them, and where to send them in Splunk. In the image below, it can be seen that I configured the inputs.conf file to collect multiple Windows Event Logs, including the Application, Security, and System logs, as well as the Microsoft-Windows-Sysmon/Operational log. Each of these inputs is enabled and set to send events to the endpoint index in Splunk. The file was originally a txt file created in Notepad, but was converted into a conf file before being added to the correct directory. <br>
+Sysmon and Splunk work in conjuction with each other to provide information about system activity by collecting, centralizing, and analyzing detailed event data. Sysmon generates in-depth logs related to process creation, network connections, file changes, and registry modifications, while Splunk ingests and correlates this data across multiple systems. By adding another inputs.conf file into Local Disk (C:) > Program Files > SplunkUniversalForwarder > etc > system > local, I can define what Sysmon event logs I want to be collected, how to collect them, and where to send them in Splunk. In the image below, it can be seen that I configured the inputs.conf file to collect multiple Windows Event Logs, including the Application, Security, and System logs, as well as the Microsoft-Windows-Sysmon/Operational log. Each of these inputs is enabled and set to send events to the endpoint index in Splunk. The file was originally a txt file created in Notepad, but was converted into a configuration file before being added to the correct directory. <br>
 <img width="650" height="500" alt="Screenshot 2025-12-28 150235" src="https://github.com/user-attachments/assets/bf60609d-30da-4bdc-a41c-1e03f3ee8486" /> <br>
+
+Anytime the inputs.conf file is updated, the Splunk Universal forwarder service must be restarted in the "Services" application on Windows, so I made sure to do that as well. I then navigated to Splunk’s Search and Reporting application and ran a search for index=endpoint, which is the index configured to receive the forwarded event logs. I confirmed that my Windows 10 machine was there, and subsequently repeated the steps for the Active Directory Server. In the image below, it can be seen that there is two hosts, one being "target-PC" (Windows 10 machine), and the other being "ADDC01" (Active Directory Server). <br>
+<img width="700" height="650" alt="Screenshot 2026-01-07 191919" src="https://github.com/user-attachments/assets/ff984241-ea82-40cd-b2e5-d1a8f400c225" /> <br>
+
+---
+
+**Step 4: Active Directory Domain Controller** <br>
+
+
+
 
 
 
