@@ -20,3 +20,12 @@ I booted up Ubuntu server and changed the IP address to match my diagram. Everyt
 <img width="650" height="500" alt="Screenshot 2025-12-23 164534" src="https://github.com/user-attachments/assets/8c08e92d-d413-4cd0-8d59-b52516efc519" /><br>
 
 To Install Splunk, on my host machine I went to the Splunk website and installed the Linux version of Splunk Enterprise. 
+
+**Step 3: Windows 10 Machine and AD Server Splunk Set Up**<br>
+For the context of this project started by changing the Windows 10 machine to be named "target-PC" because it will eventually be exposed by my Kali Linux machine. I then changed the network settings on the machine to match my network, so that I could now access my newly set up Splunk Server.
+<img align="left" width="465" height="600" alt="Screenshot 2025-12-30 193256" src="https://github.com/user-attachments/assets/36f8d4ff-8f46-4500-8a53-0ee54dfd67d4" />
+<img align="right" width="500" height="600" alt="Screenshot 2025-12-28 143050" src="https://github.com/user-attachments/assets/ec142504-6fd6-4cb8-9ede-4dd91d120062" />  <br>
+First, I installed the Splunk Universal Forwarder from the Splunk website, then I installed Sysmon which was much less straightforward. To install Sysmon, I downloaded the software from https://learn.microsoft.com/en-us/sysinternals/downloads/sysmon, and extracted the raw data of the sysmonconfig.xml from https://github.com/olafhartong/sysmon-modular. Finally, I copied the URL of the extracted directory and ran Sysmon in Powershell. 
+<img width="650" height="500" alt="Screenshot 2025-12-28 145430" src="https://github.com/user-attachments/assets/718f5f9d-4590-46a4-bc0e-122b6ebcef77" /> <br />
+
+
