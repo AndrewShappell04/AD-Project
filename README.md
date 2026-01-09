@@ -70,7 +70,7 @@ Anytime the inputs.conf file is updated, the Splunk Universal forwarder service 
 ---
 
 **Step 4: Active Directory Domain Controller** <br>
-Similarly to the other VMs, the network settings needed to be configured first to match my network diagram. So, I configured a static IP address of 192.168.10.7, default gateway of 192.168.10.1, and DNS server of 8.8.8.8. After that, I navigated to the Server Manager application that comes installed with Windows Server, and selected Manage > Add Roles and Features. I went through the steps of installing Active Directory Domain Services. <br> 
+Similarly to the other VMs, the network settings needed to be configured first to match my network diagram. So, I configured a static IP address of 192.168.10.7, default gateway of 192.168.10.1, and DNS server of 8.8.8.8. After that, I navigated to the Server Manager application that comes installed with Windows Server, and selected Manage > Add Roles and Features. I went through the steps of installing Active Directory Domain Services. I proceeded to promote the AD Server to a Domain Controller. <br> 
 <table>
   <tr>
     <td align="center">
@@ -84,7 +84,27 @@ Similarly to the other VMs, the network settings needed to be configured first t
            width="450">
     </td>
   </tr>
-</table>
+</table> <br>
+
+Now that the server was set up and registered as a domain controller, I created a couple of organizational units (OUs) and add users to them. Organizational units are used to break up objects like users, and computers into specific groups based on relation. This allows adminintsrators to apply specific Group Policies (GPOs) to certain sets of users or computers rather than the entire domain. By organizing objects into OUs, administrators can more easily manage permissions, enforce security settings, and apply policies tailored to different roles or departments. In this project, the two OUs I created were IT and HR, with the user Jenny Smith in IT and Terry Smith in HR. 
+<table>
+  <tr>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/91bb96d4-ad64-424d-9dda-9e0d945e014f"
+           alt="Screenshot 2026-01-08 164353"
+           width="450">
+    </td>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/9e7e6617-f191-4ef9-acb8-7c242e6763a3"
+           alt="Screenshot 2026-01-08 164938"
+           width="450">
+    </td>
+  </tr>
+</table> <br>
+
+
+
+
 
 
 
