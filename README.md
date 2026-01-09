@@ -102,8 +102,23 @@ Now that the server was set up and registered as a domain controller, I created 
   </tr>
 </table> <br>
 
+With the two user being created, I now needed to join the domain on my Windows 10 machine. However, when I tried joining the domain, I encountered an error saying my domain couldn't be contacted. To resolve this issue, I changed the DNS server from 8.8.8.8 to 192.168.10.7 which is the IP address of my newly created Active Directory Domain Controller. Once that was done, I was able to connect to my domain (ashap.local). The words "Sign in to: ASHAP" in the right image confirm that. 
+<table>
+  <tr>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/66384c55-8c92-44a3-843c-595d597808d9"
+           alt="Screenshot 2026-01-08 164353"
+           width="450">
+    </td>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/f9ac3768-9d4d-4de2-afef-3b21776a7af3"
+           alt="Screenshot 2026-01-08 164938"
+           width="450">
+    </td>
+  </tr>
+</table> <br>
 
-
+**Step 5: Kali Linux and Atomic Red Team**
 
 
 
