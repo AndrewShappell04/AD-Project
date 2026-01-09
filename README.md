@@ -116,10 +116,15 @@ With the two user being created, I now needed to join the domain on my Windows 1
            width="450">
     </td>
   </tr>
-</table> <br>
+</table>
 
-**Step 5: Kali Linux and Atomic Red Team**
+---
 
+**Step 5: Kali Linux and Atomic Red Team** <br>
+
+As with the other virtual machines, the first thing that needs to be done is to configure Kali's network settings. This VM will have a static IP address of 192.168.10.250, default gateway of 192.168.10.1, and DNS server of 8.8.8.8. I made sure to update and upgrade my repositories to ensure the system had the latest packages, security patches, and dependency updates before proceeding as weell. 
+
+**Attack Set Up:**
 
 
 
