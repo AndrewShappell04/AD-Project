@@ -121,10 +121,38 @@ With the two user being created, I now needed to join the domain on my Windows 1
 ---
 
 **Step 5: Kali Linux and Atomic Red Team** <br>
+As with the other virtual machines, the first thing that needs to be done is to configure Kali's network settings. This VM will have a static IP address of 192.168.10.250, default gateway of 192.168.10.1, and DNS server of 8.8.8.8. I made sure to update and upgrade my repositories to ensure the system had the latest packages, security patches, and dependency updates before proceeding as well. Also, this part was a little longer, so I decided to divide it up into sections.
 
-As with the other virtual machines, the first thing that needs to be done is to configure Kali's network settings. This VM will have a static IP address of 192.168.10.250, default gateway of 192.168.10.1, and DNS server of 8.8.8.8. I made sure to update and upgrade my repositories to ensure the system had the latest packages, security patches, and dependency updates before proceeding as weell. 
+Attack Set Up: <br>
+To begin, I created a directory called ad-project and installed a network authentication brute-force tool called crowbar (Image on the left). I then navigated to a popular wordlist in kali called rockyou.txt.gz, which was found in the /usr/share/wordlists directory. The file has the ".gz", which means it has been zipped using the gzip utility. I unzipped the file using the command, "sudo gunzip rockyou.txt.gz" and copied the file into my newly created directory. The file was quite large, so I took only the first 20 lines of this file and outputted it into a new file called passwords.txt. I also a potential password for the user Terry Smith to the passwords.txt file, as this is the account being targeted in the brute-force attempt. Finally, I went onto the Windows 10 machine, enabled remote connections, and added the two users I created previously to the remote desktop group (Image on the right).
+<table>
+  <tr>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/1609deb8-737e-4d51-9e78-d56b9e875c2f"
+           alt="Screenshot 2026-01-08 164353"
+           width="450">
+    </td>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/2d3764cd-9e98-4914-b90e-f12f55d1ebc1"
+           alt="Screenshot 2026-01-08 164938"
+           width="450">
+    </td>
+  </tr>
+</table>
 
-**Attack Set Up:**
+Running the Attack: <br>
+After installing crowbar and setting up the users to allow for remote desktop, I ran the command "crowbar -b rdp -u tsmith -C passwords.txt -s 192.168.10.100:3389 -V". The -b option specifies the brute-force module, rdp indicates that will attempt it over the rdp (Remote Desktop Protocol) authentication, -u specifies username being targeted (tsmith), -C points to password list file (password.txt), -s defines the target host and port number (192.168.10.100:3389), and -V enables verbose output so each attempt is displayed during execution. Unfortuantely, the attempt failed saying there were 0 vaild passwords found, and I'm not entirely sure why this happened. 
+<img width="600" height="400" alt="Screenshot 2026-01-04 112645" src="https://github.com/user-attachments/assets/057c89f4-9316-42e7-9c74-5572994bbc82" />
+
+
+Everything was set up properly, so this commmand should've worked, but I was able to find a work around using hydra tool. Hydra is a very similar tool that comes preinstalled with kali linux. The command I used was "hydra -l tsmith -P passwords.txt rdp://192.168.10.100 -V", and it was successful at finding a password match and brute forcing over rdp. 
+<img width="600" height="450" alt="Screenshot 2026-01-04 122428" src="https://github.com/user-attachments/assets/4d557a42-034f-411c-8a26-15dd0b71d6fe" />
+
+
+Analyzing the Data in Splunk: <br>
+With the attack complete, I can now use Splunk to examine relevant logs and events to determine how the RDP brute-force activity was captured from a security monitoring standpoint. Using the Search and Reporting tool, I typed "index=endpoint tsmith EventCode=4625". The 4625 event code identifies failed logon attempts, and as shown in the image, a total of 124 such events were recorded. This makes sense as I tried the crowbar command multiple times before confirming that it wasn't working, so there should be a lot of failed logon attempts. 
+<img width="1020" height="650" alt="Screenshot 2026-01-04 122835" src="https://github.com/user-attachments/assets/63e6adbf-7797-42d4-b217-a57c131980a3" />
+
 
 
 
