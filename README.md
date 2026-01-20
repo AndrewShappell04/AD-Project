@@ -150,8 +150,26 @@ Everything was set up properly, so this commmand should've worked, but I was abl
 
 
 Analyzing the Data in Splunk: <br>
-With the attack complete, I can now use Splunk to examine relevant logs and events to determine how the RDP brute-force activity was captured from a security monitoring standpoint. Using the Search and Reporting tool, I typed "index=endpoint tsmith EventCode=4625". The 4625 event code identifies failed logon attempts, and as shown in the image, a total of 124 such events were recorded. This makes sense as I tried the crowbar command multiple times before confirming that it wasn't working, so there should be a lot of failed logon attempts. 
+With the attack complete, I can now use Splunk to examine relevant logs and events to determine how the RDP brute-force activity was captured from a security monitoring standpoint. Using the Search and Reporting tool, I typed "index=endpoint tsmith EventCode=4625". The 4625 event code identifies failed logon attempts, and as shown in the image, a total of 124 such events were recorded. This makes sense as I tried the crowbar command multiple times before confirming that it wasn't working, so there should be a lot of failed logon attempts. In a real-world scenario, this volume of repeated failed logons from the same source would be an immediate indication of brute-force activity. 
 <img width="1020" height="650" alt="Screenshot 2026-01-04 122835" src="https://github.com/user-attachments/assets/63e6adbf-7797-42d4-b217-a57c131980a3" />
+
+Additionally, I typed "index=endpoint tsmith EventCode=4624" in the search bar as well, which displays succesful logon attempts. The most recent successful logon originated from the Kali machine, which confirms that the RDP brute-force attack was ultimately successful. In a real-world environment, this search would most likely be an immediate follow-up to the prior query to determine whether any of the repeated failed logon attempts eventually resulted in a successful authentication, indicating a potential account compromise.
+<table>
+  <tr>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/948003d1-68ea-44e3-a8d9-493d81a5f7ae"
+           alt="Screenshot 2026-01-08 164353"
+           width="550">
+    </td>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/ed604c27-eab8-4841-8114-7725ec2c74a4"
+           alt="Screenshot 2026-01-08 164938"
+           width="550">
+    </td>
+  </tr>
+</table>
+
+Installing Atomic Red Team: <br>
 
 
 
