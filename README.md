@@ -5,6 +5,8 @@
 
 **Purpose:** The purpose of this project is to gain hands-on experience setting up and configuring an Active Directory environment with a focus on security and detection. Each of the VMs serve their own role within the enviroment: Windows 10 Machine simulates user activity and authentication, Active Directory Server manages the domain and user accounts, Kali Linux machine creates the security events, and the Splunk Server monitors the domain for malicious or abnormal behavior. Working with these technologies and understanding their roles is the main learning outcome of this project. 
 
+This project was inspired by a hands-on lab from the MyDFIR YouTube channel and was independently completed by myself to gain more experience with threat simulation, detection, and log analysis using industry-relevant tools. 
+
 ---
 **Step 1: Configure the Network**<br>
 After installing the virtual machines and allocating the required hardware for each, a NAT network was configured to place all the machines on the same network. To do this, I went to Tools > Network > NAT Network > Create. I named the NAT Network "AD-Project" with the network IP Address 192.168.10.0/24.<br>
@@ -172,7 +174,12 @@ Additionally, I typed "index=endpoint tsmith EventCode=4624" in the search bar a
 Installing Atomic Red Team: <br>
 Setting up and installing Atomic Red Team is the final step of this project. Atomic Red Team is an open-source library of tests from the Mitre Att&ck Framework database that simulate real attack techniques in a safe and repeatable manner. The tests allow security analysts to view and validate their security controls and monitoring systems, like Splunk, and assess the effectiveness of detection rules, and alerting mechanisms. 
 
-The following command, "Set-ExecutionPolicy Bypass CurrentUser" was ran first to allow PowerShell to execute for the current user without modifying system-wide security settings. Also, to ensure that Windows Defender doesn't remove any files from Atomic Red Team, I added an exclusion for the C: drive. This will prevent Microsoft's Antivirus from scanning and blocking the execution of the test files in the drive. 
+The following command, "Set-ExecutionPolicy Bypass CurrentUser" was ran first to allow PowerShell to execute for the current user without modifying system-wide security settings. Also, to ensure that Windows Defender doesn't remove any files from Atomic Red Team, I added an exclusion for the C: drive. This will prevent Microsoft's Antivirus from scanning and blocking the execution of the test files in the drive. The actual command to install Atomic Red Team is quite long, but can be seen in the screenshot below. 
+
+<img width="600" height="400" alt="Screenshot 2026-01-04 112645" src="https://github.com/user-attachments/assets/8f9239d5-4e0d-4d62-a733-2b0dd2414f12" />
+
+To test one of the Atomic attacks techniques, I navigated over to the Mitre Att&ck Framework website and found a tactic (T1136.001). The tactic creates a new local account on the network and command used in PowerShell was Invoke-AtomicTest T1136.001.  
+
 
 
 
