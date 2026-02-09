@@ -170,7 +170,9 @@ Additionally, I typed "index=endpoint tsmith EventCode=4624" in the search bar a
 </table>
 
 Installing Atomic Red Team: <br>
+Setting up and installing Atomic Red Team is the final step of this project. Atomic Red Team is an open-source library of tests from the Mitre Att&ck Framework database that simulate real attack techniques in a safe and repeatable manner. The tests allow security analysts to view and validate their security controls and monitoring systems, like Splunk, and assess the effectiveness of detection rules, and alerting mechanisms. 
 
+The following command, "Set-ExecutionPolicy Bypass CurrentUser" was ran first to allow PowerShell to execute for the current user without modifying system-wide security settings. Also, to ensure that Windows Defender doesn't remove any files from Atomic Red Team, I added an exclusion for the C: drive. This will prevent Microsoft's Antivirus from scanning and blocking the execution of the test files in the drive. 
 
 
 
