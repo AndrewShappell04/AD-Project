@@ -176,9 +176,13 @@ Setting up and installing Atomic Red Team is the final step of this project. Ato
 
 The following command, "Set-ExecutionPolicy Bypass CurrentUser" was ran first to allow PowerShell to execute for the current user without modifying system-wide security settings. Also, to ensure that Windows Defender doesn't remove any files from Atomic Red Team, I added an exclusion for the C: drive. This will prevent Microsoft's Antivirus from scanning and blocking the execution of the test files in the drive. The actual command to install Atomic Red Team is quite long, but can be seen in the screenshot below. 
 
-<img width="600" height="400" alt="Screenshot 2026-01-04 112645" src="https://github.com/user-attachments/assets/8f9239d5-4e0d-4d62-a733-2b0dd2414f12" />
+<img width="600" height="400" alt="Screenshot 2026-01-04 112645" src="https://github.com/user-attachments/assets/8f9239d5-4e0d-4d62-a733-2b0dd2414f12" /> <br>
 
-To test one of the Atomic attacks techniques, I navigated over to the Mitre Att&ck Framework website and found a tactic (T1136.001). The tactic creates a new local account on the network and command used in PowerShell was Invoke-AtomicTest T1136.001.  
+To test one of the Atomic attacks techniques, I navigated over to the Mitre Att&ck Framework website and found a tactic (T1136.001). This tactic simulates the creation of a new local user account on the system. The PowerShell command "Invoke-AtomicTest T1136.001" was used to execute this Atomic Red Team test. After running this command, I checked splunk to see if any events involving a user account created with the username "NewLocalUser" were generated, but no results were shown. This is one of the benefits of using Atomic Red Team because it allows me to identify the gaps in visibility and detection by safely simulating real-world attack behavior and validating whether the security controls and logging systems are accounting for specific types of attacks. 
+
+<img width="600" height="400" alt="Screenshot 2026-01-04 112645" src="https://github.com/user-attachments/assets/25d0bb5c-7976-4f35-9888-5778bf7a337b" />
+
+
 
 
 
