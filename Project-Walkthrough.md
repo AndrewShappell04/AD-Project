@@ -1,7 +1,5 @@
 # Project Walkthrough 
 
---
-
 **Step 1: Configure the Network**<br>
 After installing the virtual machines and allocating the required hardware for each, a NAT network was configured to place all the machines on the same network. To do this, I went to Tools > Network > NAT Network > Create. I named the NAT Network "AD-Project" with the network IP Address 192.168.10.0/24.<br>
 
