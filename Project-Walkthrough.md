@@ -12,7 +12,7 @@ From there, I navigated to each VM > Settings > Network, changed it to "Attached
 **Step 2: Set up Splunk Server**<br>
 I booted up Ubuntu Server and changed the IP address to match my diagram. Everything in Linux is either a file or a folder, so I navigated into the network configuration file using the command "sudo nano /etc/netplan/50-cloud-init.yaml". I modified the file by configuring a static IP address of 192.168.10.10, changing the DNS to 8.8.8.8 (Google's DNS server), and changing the default gateway to 192.168.10.1 (my network's default gateway).
 
-<img width="650" height="500" alt="Screenshot 2025-12-23 164534" src="https://github.com/user-attachments/assets/8c08e92d-d413-4cd0-8d59-b52516efc519" /><br>
+<img width="650" height="450" alt="Screenshot 2025-12-23 164534" src="https://github.com/user-attachments/assets/8c08e92d-d413-4cd0-8d59-b52516efc519" /><br>
 
 Following this, I needed to install Splunk on my Ubuntu Server, so I first downloaded the Linux version of Splunk Enterprise on my host machine. Next, I installed the necessary VirtualBox Guest Additions on the Ubuntu Server to ensure proper integration between the host and the virtual machine. After that, I created a shared folder in VirtualBox so the Splunk installation files could be accessed from within the server. Once the shared folder was mounted and verified, I navigated to it from the Ubuntu Server and installed Splunk using the package manager. After installation, I started Splunk, completed the initial setup, and configured it to run automatically at boot using my dedicated Splunk user. This ensured that whenever the Ubuntu Server was started and I logged in with my user account, Splunk would automatically start as well.
 
@@ -55,15 +55,15 @@ For the context of this project, I started by changing the Windows 10 machine to
 
 First, I installed the Splunk Universal Forwarder from the Splunk website, then I installed Sysmon, which was much less straightforward. To install Sysmon, I downloaded the software from https://learn.microsoft.com/en-us/sysinternals/downloads/sysmon and extracted the sysmonconfig.xml file from https://github.com/olafhartong/sysmon-modular. Finally, I copied the URL of the extracted directory and ran Sysmon in PowerShell.
 
-<img width="650" height="500" alt="Screenshot 2025-12-28 145430" src="https://github.com/user-attachments/assets/718f5f9d-4590-46a4-bc0e-122b6ebcef77" /> <br>
+<img width="650" height="450" alt="Screenshot 2025-12-28 145430" src="https://github.com/user-attachments/assets/718f5f9d-4590-46a4-bc0e-122b6ebcef77" /> <br>
 
 Sysmon and Splunk work in conjunction with each other to provide information about system activity by collecting, centralizing, and analyzing detailed event data. Sysmon generates in-depth logs related to process creation, network connections, file changes, and registry modifications, while Splunk ingests and correlates this data across multiple systems. By adding another inputs.conf file into Local Disk (C:) > Program Files > SplunkUniversalForwarder > etc > system > local, I can define what Sysmon event logs I want to be collected, how to collect them, and where to send them in Splunk. In the image below, it can be seen that I configured the inputs.conf file to collect multiple Windows Event Logs, including the Application, Security, and System logs, as well as the Microsoft-Windows-Sysmon/Operational log. Each of these inputs is enabled and set to send events to the endpoint index in Splunk. The file was originally a .txt file created in Notepad, but was converted into a configuration file before being added to the correct directory.
 
-<img width="650" height="500" alt="Screenshot 2025-12-28 150235" src="https://github.com/user-attachments/assets/bf60609d-30da-4bdc-a41c-1e03f3ee8486" /> <br>
+<img width="650" height="450" alt="Screenshot 2025-12-28 150235" src="https://github.com/user-attachments/assets/bf60609d-30da-4bdc-a41c-1e03f3ee8486" /> <br>
 
 Anytime the inputs.conf file is updated, the Splunk Universal Forwarder service must be restarted in the "Services" application on Windows, so I made sure to do that as well. I then navigated to Splunk’s Search and Reporting application and ran a search for index=endpoint, which is the index configured to receive the forwarded event logs. I confirmed that my Windows 10 machine was there, and subsequently repeated the steps for the Active Directory Server. In the image below, it can be seen that there are two hosts, one being "target-PC" (Windows 10 machine), and the other being "ADDC01" (Active Directory Server).
 
-<img width="700" height="500" alt="Screenshot 2026-01-07 191919" src="https://github.com/user-attachments/assets/ff984241-ea82-40cd-b2e5-d1a8f400c225" /> <br>
+<img width="700" height="450" alt="Screenshot 2026-01-07 191919" src="https://github.com/user-attachments/assets/ff984241-ea82-40cd-b2e5-d1a8f400c225" /> <br>
 
 ---
 
@@ -155,7 +155,7 @@ Everything was set up properly, so this command should've worked, but I was able
 Analyzing the Data in Splunk: <br>
 With the attack complete, I can now use Splunk to examine relevant logs and events to determine how the RDP brute-force activity was captured from a security monitoring standpoint. Using the Search and Reporting tool, I typed index=endpoint tsmith EventCode=4625. The 4625 event code identifies failed logon attempts, and as shown in the image, a total of 124 such events were recorded. This makes sense as I tried the crowbar command multiple times before confirming that it wasn't working, so there should be a lot of failed logon attempts. In a real-world scenario, this volume of repeated failed logons from the same source would be an immediate indication of brute-force activity.
 
-<img width="1020" height="650" alt="Screenshot 2026-01-04 122835" src="https://github.com/user-attachments/assets/63e6adbf-7797-42d4-b217-a57c131980a3" /> <br>
+<img width="1020" height="450" alt="Screenshot 2026-01-04 122835" src="https://github.com/user-attachments/assets/63e6adbf-7797-42d4-b217-a57c131980a3" /> <br>
 
 Additionally, I typed "index=endpoint tsmith EventCode=4624" in the search bar as well, which displays successful logon attempts. The most recent successful logon originated from the Kali machine, which confirms that the RDP brute-force attack was ultimately successful. In a real-world environment, this search would most likely be an immediate follow-up to the prior query to determine whether any of the repeated failed logon attempts eventually resulted in a successful authentication, indicating a potential account compromise.
 
