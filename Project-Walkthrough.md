@@ -1,11 +1,11 @@
 # Project Walkthrough 
 
 **Step 1: Configure the Network**<br>
-After installing the virtual machines and allocating the required hardware for each, a NAT network was configured to place all the machines on the same network. To do this, I went to Tools > Network > NAT Network > Create. I named the NAT Network "AD-Project" with the network IP Address 192.168.10.0/24.<br>
+After installing the virtual machines and allocating the required hardware for each, a NAT network was configured to place all the machines on the same network. To do this, I went to Tools > Network > NAT Network > Create. I named the NAT Network "AD-Project" with the network IP Address 192.168.10.0/24.
 
-The /24 in the CIDR notation indicates that the first 24 bits of the IP address are the network portion, which means the subnet mask is 255.255.255.0. This allows for 256 total IP addresses in the subnet, with 254 usable host addresses (since the first address is reserved as the network address and the last as the broadcast address).<br>
+The /24 in the CIDR notation indicates that the first 24 bits of the IP address are the network portion, which means the subnet mask is 255.255.255.0. This allows for 256 total IP addresses in the subnet, with 254 usable host addresses (since the first address is reserved as the network address and the last as the broadcast address).
 
-From there, I navigated to each VM > Settings > Network, changed it to "Attached to: NAT", and changed to the network I just created (AD-Project).
+From there, I navigated to each VM > Settings > Network, changed it to "Attached to: NAT", and changed it to the network I just created (AD-Project).
 
 ---
 
