@@ -1,4 +1,4 @@
-# AD-Project
+# Active Directory Security Monitoring Project
 **Project Description:** </br>
 This project was designed to simulate a small enterprise network constructed via Active Directory using Oracle VirtualBox. The project consists of four virtual machines: a Windows 10 workstation, a Kali Linux machine, a Windows Server, and an Ubuntu Server. Each machine serves a distinct purpose and is configured to communicate with the others through a single NAT network. The network layout is shown in the image below, along with each machine’s IP address and installed software. As part of this project, the Ubuntu Server is configured as a Splunk Server for centralized log management. Both the Windows 10 machine and the Windows Server have the Splunk Universal Forwarder installed, which transmits log data to the Splunk Server, as represented by the dotted green line.
 
